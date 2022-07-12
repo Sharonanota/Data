@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataAPI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form">
+    <center>
+        <h3>
+            Registration
+        </h3>
+    <hr/>
+    <input type="text" id="name" placeholder="Enter name">
+    <br/>
+    <input type="text" id="Email" placeholder="Enter email">
+    <input type="button" value="submit" onclick="send_data()">
+    <span id="response">
+
+    </span>
+    </center>
+    </div>
+    <script>
+        function send_data(){
+            var name= document.getElementById("name").value;
+            var email=document.getElementById("Email").value
+            var httpr=new XMLHttpRequest();
+            httpr.open("POST","")
+        }
+    </script>
+    $.ajax({
+        type: "POST",
+        url: "/county/add",
+        data: formData,
+        dataType: 'json',
+        beforeSend: function () {
+          btn.prop("disabled", true).html('<i class="fa fa-spinner fa-spin"></i>');
+        },
+        success: function (data) {
+            console.log(data);
+            if(isEmpty(data["success"])){
+                // $("#modalsuccess").html("");
+                // dismissSweetProgress("error...");
+                errorMessage(data["errors"]);
+                btn.prop("disabled", false).html('SUBMIT');
+            }
+            else{
+                successMessage(data["success"]);
+                btn.prop("disabled", false).html('SUBMIT');
+                clearFields();
+                getData();
+                // showPopupMessage("success","success");
+            }
+        },
+        error: function (data) {
+            errorMessage(data);
+            btn.prop("disabled", false).html('SUBMIT');
+        }
+    });
+    
+</body>
+</html>
